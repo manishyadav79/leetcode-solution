@@ -1,0 +1,26 @@
+class Solution {
+    public int maxDepth(String s) {
+        int maxDepth = 0; // This will store the maximum depth of the parentheses
+        int currentDepth = 0; // This will keep track of the current depth
+
+        // Iterating over each character in the string
+        for (int i = 0; i < s.length(); ++i) {
+            char c = s.charAt(i); // Get the current character from the string
+
+            if (c == '(') {
+                // If the character is an opening parenthesis, we increase the current depth
+                currentDepth++;
+
+                // Update the maximum depth if the current depth is greater than the maxDepth observed so far
+                maxDepth = Math.max(maxDepth, currentDepth);
+            } else if (c == ')') {
+                // If the character is a closing parenthesis, we decrease the current depth
+                currentDepth--;
+            }
+            // We ignore all other characters
+        }
+
+        // Returning the maximum depth of nesting of the parentheses encountered in the string
+        return maxDepth;
+    }
+}
