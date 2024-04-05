@@ -1,0 +1,22 @@
+class Solution {
+    // Method to remove instances where a letter and its opposite case letter are adjacent
+    public String makeGood(String str) {
+        // StringBuilder to efficiently manipulate strings
+        StringBuilder stringBuilder = new StringBuilder();
+      
+        // Loop through all characters in the input string
+        for (char currentChar : str.toCharArray()) {
+            // Check if stringBuilder is empty or if the last character does not cancel out with currentChar
+            // The condition checks ASCII value difference: 32 is the difference between lower and uppercase letters
+            if (stringBuilder.length() == 0 || Math.abs(stringBuilder.charAt(stringBuilder.length() - 1) - currentChar) != 32) {
+                // If they do not cancel, append current character to stringBuilder
+                stringBuilder.append(currentChar);
+            } else {
+                // If they cancel, remove the last character from stringBuilder
+                stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+            }
+        }
+        // Return the "good" string after all cancellations are done
+        return stringBuilder.toString();
+    }
+}
