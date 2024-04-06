@@ -1,0 +1,53 @@
+class Solution {
+    public String minRemoveToMakeValid(String s) {
+        // Use a deque as a stack to manage parentheses.
+        Deque<Character> stack = new ArrayDeque<>();
+        // Counter to keep track of unmatched opening parentheses.
+        int openCount = 0;
+      
+        // First pass: remove invalid closing parentheses.
+        for (int i = 0; i < s.length(); ++i) {
+            char current = s.charAt(i);
+            // Skip this character if it's an unmatched closing parenthesis.
+            if (current == ')' && openCount == 0) {
+                continue;
+            }
+            // If a valid opening parenthesis is found, increment openCount.
+            if (current == '(') {
+                ++openCount;
+            } else if (current == ')') {
+                // If a valid closing parenthesis is found, decrement openCount.
+                --openCount;
+            }
+            // Push the current character onto the stack.
+            stack.push(current);
+        }
+      
+        // StringBuilder to construct the output string.
+        StringBuilder result = new StringBuilder();
+        // Reset openCount for the second pass.
+        openCount = 0;
+      
+        // Second pass: remove invalid opening parentheses.
+        while (!stack.isEmpty()) {
+            char current = stack.pop();
+            // Skip this character if it's an unmatched opening parenthesis.
+            if (current == '(' && openCount == 0) {
+                continue;
+            }
+            // If a closing parenthesis is found, increment openCount.
+            if (current == ')') {
+                ++openCount;
+            } else if (current == '(') {
+                // If an opening parenthesis is found, decrement openCount.
+                --openCount;
+            }
+            // Append the current character to the result.
+            result.append(current);
+        }
+      
+        // Reverse the result string to restore the original order
+        // since the second pass processed characters in reverse.
+        return result.reverse().toString();
+    }
+}
