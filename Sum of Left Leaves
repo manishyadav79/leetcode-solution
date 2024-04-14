@@ -1,0 +1,52 @@
+class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+  
+    TreeNode(int x) {
+        val = x;
+    }
+}
+
+public class Solution {
+  
+    /**
+     * Calculates the sum of all left leaves in a binary tree.
+     *
+     * @param root the root of the binary tree
+     * @return the sum of all left leaves' values
+     */
+    public int sumOfLeftLeaves(TreeNode root) {
+        // Base case: If the current node is null, return 0 since there are no leaves.
+        if (root == null) {
+            return 0;
+        }
+
+        // Initialize sum to keep track of the left leaves sum.
+        int sum = 0;
+
+        // Check if the current node has a left child and the left child is a leaf node.
+        if (root.left != null && isLeaf(root.left)) {
+            // If it's a left leaf node, add its value to the sum.
+            sum += root.left.val;
+        }
+
+        // Recursive call to traverse the left subtree and add any left leaves found to the sum.
+        sum += sumOfLeftLeaves(root.left);
+        // Recursive call to traverse the right subtree but left leaves in this subtree are not added.
+        sum += sumOfLeftLeaves(root.right);
+
+        // Return the total sum of left leaves found.
+        return sum;
+    }
+
+    /**
+     * Helper method to check if a given node is a leaf node.
+     *
+     * @param node the node to check
+     * @return true if the node is a leaf node, false otherwise
+     */
+    private boolean isLeaf(TreeNode node) {
+        return node.left == null && node.right == null;
+    }
+}
